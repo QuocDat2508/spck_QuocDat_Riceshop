@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sản Phẩm - QUOCDAT RICESHOP</title>
+    <!-- Font chữ chuyên nghiệp -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome cho Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="product.css">
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header>
+        <nav class="navbar container">
+            <div class="logo">
+                <a href="index.html">QUOCDAT <span>RICE</span></a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Trang Chủ</a></li>
+                <li><a href="products.html" class="active">Sản Phẩm</a></li>
+                <li><a href="about.html">Giới Thiệu</a></li>
+                <li><a href="contact.html">Liên Hệ</a></li>
+            </ul>
+            <div class="nav-icons">
+                <a href="login.html"><i class="fas fa-user"></i></a>
+                <a href="cart.html" class="cart-icon">
+                    <i class="fas fa-shopping-basket"></i>
+                    <span class="badge">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header (Banner) -->
+    <section class="page-banner">
+        <div class="banner-content">
+            <h1>CỬA HÀNG GẠO SẠCH</h1>
+            <p>Sản phẩm chất lượng cao từ những cánh đồng trù phú nhất Việt Nam</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container main-content">
+        <!-- Bộ lọc và tìm kiếm -->
+        <div class="shop-toolbar">
+            <div class="search-bar">
+                <input type="text" placeholder="Tìm loại gạo của bạn...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <div class="sort-options">
+                <select>
+                    <option>Sắp xếp: Mặc định</option>
+                    <option>Giá: Thấp đến cao</option>
+                    <option>Giá: Cao đến thấp</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Lưới sản phẩm (Grid) -->
+        <div class="product-grid">
+            
+            <!-- Sản phẩm 1 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500" alt="Gạo ST25">
+                    <div class="product-badge">Hot</div>
+                </div>
+                <div class="product-info">
+                    <h3>Gạo ST25 Đặc Sản Sóc Trăng - Ngon Nhất Thế Giới</h3>
+                    <p class="price">35.000đ <span>/kg</span></p>
+                    <div class="rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <button class="add-to-cart"><i class="fas fa-shopping-cart"></i> Thêm vào giỏ</button>
+                </div>
+            </div>
+
+            <!-- Sản phẩm 2 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?w=500" alt="Gạo Lứt">
+                </div>
+                <div class="product-info">
+                    <h3>Gạo Lứt Huyết Rồng Nguyên Cám</h3>
+                    <p class="price">45.000đ <span>/kg</span></p>
+                    <div class="rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <button class="add-to-cart"><i class="fas fa-shopping-cart"></i> Thêm vào giỏ</button>
+                </div>
+            </div>
+
+            <!-- Sản phẩm 3 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1516684732162-798a0062be99?w=500" alt="Gạo Đài Thơm">
+                </div>
+                <div class="product-info">
+                    <h3>Gạo Đài Thơm 8 Loại Cao Cấp</h3>
+                    <p class="price">22.000đ <span>/kg</span></p>
+                    <div class="rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    </div>
+                    <button class="add-to-cart"><i class="fas fa-shopping-cart"></i> Thêm vào giỏ</button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <p>&copy; 2024 QUOCDAT RICESHOP - Gạo sạch cho mọi nhà</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
