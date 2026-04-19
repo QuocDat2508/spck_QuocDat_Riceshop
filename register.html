@@ -4,16 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng ký - Quốc Đạt Rice Shop</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="auth-page">
+
     <div class="auth-container">
-        <div class="auth-box fade-in">
+        <div class="auth-box">
             <div class="auth-header">
                 <div class="logo">
                     <i class="fas fa-seedling"></i>
-                    <span>QUOCDAT RICE</span>
+                    <span>QUOCDAT <span>RICE</span></span>
                 </div>
                 <h2>Tạo tài khoản mới</h2>
                 <p>Trở thành thành viên để nhận ưu đãi Gạo sạch</p>
@@ -26,17 +30,17 @@
                 </div>
                 <div class="input-group">
                     <i class="fas fa-envelope"></i>
-                    <input type="email" id="email" placeholder="Email" required>
+                    <input type="email" id="reg-email" placeholder="Email đăng ký" required>
                 </div>
                 <div class="input-group">
                     <i class="fas fa-lock"></i>
-                    <input type="password" id="password" placeholder="Mật khẩu" required>
+                    <input type="password" id="reg-password" placeholder="Mật khẩu" required>
                 </div>
                 <div class="input-group">
                     <i class="fas fa-check-double"></i>
                     <input type="password" id="confirm-password" placeholder="Xác nhận mật khẩu" required>
                 </div>
-                <button type="submit" class="btn-submit">Đăng Ký</button>
+                <button type="submit" class="btn-submit">ĐĂNG KÝ</button>
             </form>
 
             <div class="auth-footer">
@@ -45,6 +49,48 @@
             </div>
         </div>
     </div>
-    <script src="app.js"></script>
+
+    <!-- Logic Xử lý Đăng Ký -->
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const fullname = document.getElementById('fullname').value;
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            // Kiểm tra mật khẩu
+            if (password !== confirmPassword) {
+                alert("Mật khẩu xác nhận không trùng khớp!");
+                return;
+            }
+
+            // Lấy danh sách users cũ từ localStorage
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+
+            // Kiểm tra email đã tồn tại chưa
+            const isExist = users.some(u => u.email === email);
+            if (isExist) {
+                alert("Email này đã được sử dụng!");
+                return;
+            }
+
+            // Thêm người dùng mới vào mảng
+            const newUser = {
+                fullname: fullname,
+                email: email,
+                password: password
+            };
+
+            users.push(newUser);
+
+            // Lưu mảng vào localStorage (Giả lập việc lưu vào file JSON)
+            localStorage.setItem('users', JSON.stringify(users));
+
+            alert("Đăng ký thành công! Bạn sẽ được chuyển tới trang đăng nhập.");
+            window.location.href = "login.html";
+        });
+    </script>
 </body>
 </html>

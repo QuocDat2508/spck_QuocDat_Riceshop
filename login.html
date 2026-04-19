@@ -4,17 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng nhập - Quốc Đạt Rice Shop</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Thêm icon từ FontAwesome -->
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="auth-page">
+
     <div class="auth-container">
         <div class="auth-box">
             <div class="auth-header">
                 <div class="logo">
                     <i class="fas fa-seedling"></i>
-                    <span>QUOCDAT RICE</span>
+                    <span>QUOCDAT <span>RICE</span></span>
                 </div>
                 <h2>Chào mừng trở lại!</h2>
                 <p>Mua gạo sạch, giao tận nhà nhanh chóng</p>
@@ -23,17 +26,17 @@
             <form id="loginForm" class="auth-form">
                 <div class="input-group">
                     <i class="fas fa-envelope"></i>
-                    <input type="email" id="email" placeholder="Email của bạn" required>
+                    <input type="email" id="login-email" placeholder="Email của bạn" required>
                 </div>
                 <div class="input-group">
                     <i class="fas fa-lock"></i>
-                    <input type="password" id="password" placeholder="Mật khẩu" required>
+                    <input type="password" id="login-password" placeholder="Mật khẩu" required>
                 </div>
                 <div class="form-options">
-                    <label><input type="checkbox"> Ghi nhớ</label>
+                    <label style="cursor: pointer;"><input type="checkbox"> Ghi nhớ</label>
                     <a href="#">Quên mật khẩu?</a>
                 </div>
-                <button type="submit" class="btn-submit">Đăng Nhập</button>
+                <button type="submit" class="btn-submit">ĐĂNG NHẬP</button>
             </form>
 
             <div class="auth-footer">
@@ -42,6 +45,30 @@
             </div>
         </div>
     </div>
-    <script src="app.js"></script>
+
+    <!-- Logic Xử lý Đăng Nhập -->
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            // Lấy dữ liệu từ localStorage (giả lập file JSON)
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+
+            // Tìm kiếm người dùng khớp email và mật khẩu
+            const user = users.find(u => u.email === email && u.password === password);
+
+            if (user) {
+                // Lưu thông tin người dùng vào sessionStorage để đánh dấu đã đăng nhập
+                sessionStorage.setItem('currentUser', JSON.stringify(user));
+                alert("Đăng nhập thành công! Chào mừng " + user.fullname);
+                window.location.href = "index.html"; // Chuyển về trang chủ
+            } else {
+                alert("Email hoặc mật khẩu không chính xác!");
+            }
+        });
+    </script>
 </body>
 </html>

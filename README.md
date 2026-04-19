@@ -1,18 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập - Quốc Đạt Rice Shop</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Thêm icon từ FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-box">
+            <div class="auth-header">
+                <div class="logo">
+                    <i class="fas fa-seedling"></i>
+                    <span>QUOCDAT RICE</span>
+                </div>
+                <h2>Chào mừng trở lại!</h2>
+                <p>Mua gạo sạch, giao tận nhà nhanh chóng</p>
+            </div>
 
-```
-SPCK_QUOCDAT_RICESHOP
-├─ about.html
-├─ admin.html
-├─ app.js
-├─ cart.html
-├─ checkout.html
-├─ contact.html
-├─ index.html
-├─ login.html
-├─ product.html
-├─ products.html
-├─ README.md
-├─ register.html
-└─ style.css
+            <form id="loginForm" class="auth-form">
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="email" placeholder="Email của bạn" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Mật khẩu" required>
+                </div>
+                <div class="form-options">
+                    <label><input type="checkbox"> Ghi nhớ</label>
+                    <a href="#">Quên mật khẩu?</a>
+                </div>
+                <button type="submit" class="btn-submit">Đăng Nhập</button>
+            </form>
 
-```
+            <div class="auth-footer">
+                <p>Chưa có tài khoản? <a href="register.html">Đăng ký ngay</a></p>
+                <a href="index.html" class="back-home"><i class="fas fa-arrow-left"></i> Quay lại trang chủ</a>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký - Quốc Đạt Rice Shop</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-box fade-in">
+            <div class="auth-header">
+                <div class="logo">
+                    <i class="fas fa-seedling"></i>
+                    <span>QUOCDAT RICE</span>
+                </div>
+                <h2>Tạo tài khoản mới</h2>
+                <p>Trở thành thành viên để nhận ưu đãi Gạo sạch</p>
+            </div>
+
+            <form id="registerForm" class="auth-form">
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="fullname" placeholder="Họ và tên" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="email" placeholder="Email" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Mật khẩu" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-check-double"></i>
+                    <input type="password" id="confirm-password" placeholder="Xác nhận mật khẩu" required>
+                </div>
+                <button type="submit" class="btn-submit">Đăng Ký</button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Đã có tài khoản? <a href="login.html">Đăng nhập</a></p>
+                <a href="index.html" class="back-home"><i class="fas fa-arrow-left"></i> Quay lại trang chủ</a>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+GIUPS TOOI CHINH LAI GIAO DIEN TRANG LOGIN VAF REGISTER NHIN DEP HON VA LAM CHUC NANG DANG KY TAI KHOAN THI LUU VAO JSON VA DANG NHAP TAI KHOAN DUNG THI VAO TRANG CHU 
+
+
+
+
+

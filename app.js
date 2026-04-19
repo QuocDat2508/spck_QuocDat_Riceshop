@@ -1,113 +1,92 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Xử lý Form Đăng Nhập
-    const loginForm = document.getElementById('loginForm');
-    if (loginForm) {
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            // Hiệu ứng giả lập load
-            const btn = loginForm.querySelector('.btn-submit');
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang đăng nhập...';
-            
-            setTimeout(() => {
-                alert('Đăng nhập thành công với: ' + email);
-                window.location.href = 'index.html';
-            }, 1500);
-        });
-    }
+// app.js
 
-    // Xử lý Form Đăng Ký
+document.addEventListener('DOMContentLoaded', () => {
+    // --- XỬ LÝ ĐĂNG KÝ ---
     const registerForm = document.getElementById('registerForm');
     if (registerForm) {
         registerForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const pass = document.getElementById('password').value;
-            const confirmPass = document.getElementById('confirm-password').value;
 
-            if (pass !== confirmPass) {
-                alert('Mật khẩu xác nhận không khớp!');
+            const fullname = document.getElementById('fullname').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            // Kiểm tra mật khẩu khớp
+            if (password !== confirmPassword) {
+                alert("Mật khẩu xác nhận không khớp!");
                 return;
             }
 
-            const btn = registerForm.querySelector('.btn-submit');
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang tạo tài khoản...';
+            // Lấy danh sách user từ localStorage (nếu chưa có thì tạo mảng rỗng)
+            const users = JSON.parse(localStorage.getItem('users')) || [];
 
-            setTimeout(() => {
-                alert('Đăng ký tài khoản thành công!');
-                window.location.href = 'login.html';
-            }, 1500);
+            // Kiểm tra email đã tồn tại chưa
+            const userExists = users.some(user => user.email === email);
+            if (userExists) {
+                alert("Email này đã được đăng ký!");
+                return;
+            }
+
+            // Thêm user mới
+            const newUser = {
+                fullname: fullname,
+                email: email,
+                password: password // Lưu ý: Trong thực tế nên mã hóa mật khẩu
+            };
+
+            users.push(newUser);
+
+            // Lưu lại vào localStorage (dưới dạng chuỗi JSON)
+            localStorage.setItem('users', JSON.stringify(users));
+
+            alert("Đăng ký thành công! Bạn sẽ được chuyển đến trang đăng nhập.");
+            window.location.href = 'login.html';
+        });
+    }
+
+    // --- XỬ LÝ ĐĂNG NHẬP ---
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Lấy danh sách user từ localStorage
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+
+            // Tìm user khớp email và password
+            const user = users.find(u => u.email === email && u.password === password);
+
+            if (user) {
+                // Lưu trạng thái đăng nhập
+                sessionStorage.setItem('loggedInUser', JSON.stringify(user));
+                
+                alert("Đăng nhập thành công! Chào mừng " + user.fullname);
+                window.location.href = 'index.html'; // Chuyển hướng về trang chủ
+            } else {
+                alert("Email hoặc mật khẩu không chính xác!");
+            }
+        });
+    }
+
+    // --- CẬP NHẬT GIAO DIỆN TRANG CHỦ KHI ĐÃ ĐĂNG NHẬP (Tùy chọn) ---
+    const userIcon = document.querySelector('.nav-icons a[href="login.html"]');
+    const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
+
+    if (loggedInUser && userIcon) {
+        // Thay đổi icon login thành tên user hoặc icon đăng xuất
+        userIcon.innerHTML = `<i class="fas fa-user-check"></i> <span style="font-size: 12px">${loggedInUser.fullname.split(' ').pop()}</span>`;
+        userIcon.href = "#"; // Hoặc trang cá nhân
+        
+        // Thêm nút đăng xuất nếu cần
+        userIcon.addEventListener('click', () => {
+            if(confirm("Bạn có muốn đăng xuất không?")) {
+                sessionStorage.removeItem('loggedInUser');
+                window.location.reload();
+            }
         });
     }
 });
-// Tính năng thêm vào giỏ hàng đơn giản
-let cartCount = 0;
-const cartCountDisplay = document.querySelector('.cart-count');
-const addBtns = document.querySelectorAll('.btn-add-cart');
-
-addBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        cartCount++;
-        cartCountDisplay.innerText = cartCount;
-        
-        // Hiệu ứng thông báo nhỏ
-        const productName = btn.parentElement.querySelector('h3').innerText;
-        alert(`Đã thêm ${productName} vào giỏ hàng!`);
-    });
-});
-
-// Mobile Menu Toggle
-const menuToggle = document.querySelector('.menu-toggle');
-const navMenu = document.querySelector('.nav-menu');
-
-if (menuToggle) {
-    menuToggle.addEventListener('click', () => {
-        // Bạn có thể thêm class để hiện menu mobile ở đây
-        alert('Chức năng menu trên mobile đang được phát triển');
-    });
-}
-
-
-
-
-document.addEventListener('DOMContentLoaded', () => {
-    const navbar = document.querySelector('.navbar');
-    const badge = document.querySelector('.badge');
-    const addButtons = document.querySelectorAll('.add-to-cart');
-    let count = 0;
-
-    // 1. Hiệu ứng đổi màu Navbar khi cuộn
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.style.background = '#ffffff';
-            navbar.style.padding = '5px 0';
-            navbar.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
-        } else {
-            navbar.style.background = '#ffffff';
-            navbar.style.padding = '15px 0';
-            navbar.style.boxShadow = 'none';
-        }
-    });
-
-    // 2. Xử lý thêm vào giỏ hàng
-    addButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            count++;
-            badge.innerText = count;
-            
-            // Hiệu ứng rung icon giỏ hàng
-            const cartIcon = document.querySelector('.cart-btn i');
-            cartIcon.style.animation = 'shake 0.5s ease';
-            setTimeout(() => cartIcon.style.animation = '', 500);
-
-            // Thông báo nhỏ
-            const toast = document.createElement('div');
-            toast.className = 'toast-msg';
-            toast.innerText = 'Đã thêm vào giỏ hàng!';
-            document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 2000);
-        });
-    });
-});
-
-// Thêm CSS animation cho giỏ hàng vào style.css nếu muốn
-// @keyframes shake { 0% {transform: rotate(0)} 25% {transform: rotate(15deg)} 50% {transform: rotate(-15deg)} 100% {transform: rotate(0)} }
