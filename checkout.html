@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh Toán - QUOCDAT RICESHOP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="checkout.css"> <!-- File CSS mới -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="cart-page-body">
+
+    <header>
+        <nav class="navbar container">
+            <div class="logo">
+                <a href="index.html"><i class="fas fa-seedling"></i> QUOCDAT <span>RICE</span></a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Trang Chủ</a></li>
+                <li><a href="products.html">Sản Phẩm</a></li>
+                <li><a href="about.html">Giới Thiệu</a></li>
+            </ul>
+            <div class="nav-icons">
+                <a href="login.html" id="user-login-btn"><i class="fas fa-user"></i></a>
+                <a href="cart.html" class="cart-icon">
+                    <i class="fas fa-shopping-basket" style="color: var(--primary-color);"></i>
+                    <span class="badge">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="checkout-section container">
+        <h1>Thanh Toán Đơn Hàng</h1>
+        
+        <form id="checkout-form" class="checkout-layout">
+            <!-- Cột trái: Thông tin nhận hàng -->
+            <div class="checkout-form-container">
+                <h3><i class="fas fa-truck"></i> Thông tin giao hàng</h3>
+                <div class="input-group">
+                    <label>Họ và tên</label>
+                    <input type="text" id="checkout-name" required placeholder="Nhập họ tên người nhận">
+                </div>
+                <div class="input-group">
+                    <label>Số điện thoại</label>
+                    <input type="tel" id="checkout-phone" required placeholder="Nhập số điện thoại">
+                </div>
+                <div class="input-group">
+                    <label>Địa chỉ nhận hàng</label>
+                    <textarea id="checkout-address" required placeholder="Số nhà, tên đường, phường/xã, quận/huyện..."></textarea>
+                </div>
+                <div class="input-group">
+                    <label>Ghi chú (tùy chọn)</label>
+                    <textarea id="checkout-note" placeholder="Ví dụ: Giao giờ hành chính..."></textarea>
+                </div>
+
+                <h3 style="margin-top: 30px;"><i class="fas fa-credit-card"></i> Phương thức thanh toán</h3>
+                <div class="payment-methods">
+                    <label class="method-item">
+                        <input type="radio" name="payment" value="COD" checked>
+                        <span>Thanh toán khi nhận hàng (COD)</span>
+                    </label>
+                    <label class="method-item">
+                        <input type="radio" name="payment" value="Bank">
+                        <span>Chuyển khoản ngân hàng</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Cột phải: Tóm tắt đơn hàng -->
+            <aside class="order-summary-container">
+                <div class="summary-box">
+                    <h3>Đơn hàng của bạn</h3>
+                    <div id="checkout-items-list">
+                        <!-- Danh sách sản phẩm rút gọn sẽ hiện ở đây -->
+                    </div>
+                    <hr>
+                    <div class="summary-line">
+                        <span>Tạm tính:</span>
+                        <span id="checkout-subtotal">0đ</span>
+                    </div>
+                    <div class="summary-line">
+                        <span>Phí vận chuyển:</span>
+                        <span>Miễn phí</span>
+                    </div>
+                    <div class="summary-line total">
+                        <span>Tổng cộng:</span>
+                        <span id="checkout-total">0đ</span>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-order">ĐẶT HÀNG NGAY</button>
+                    <a href="cart.html" class="btn-back-cart">Quay lại giỏ hàng</a>
+                </div>
+            </aside>
+        </form>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

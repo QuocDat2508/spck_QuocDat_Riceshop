@@ -162,3 +162,198 @@ window.removeProduct = (index) => {
         updateCartBadge();
     }
 };
+
+
+
+
+
+// --- THÊM LOGIC THANH TOÁN VÀO APP.JS ---
+
+document.addEventListener('DOMContentLoaded', () => {
+    // ... (Giữ nguyên các code cũ của bạn) ...
+
+    // Xử lý hiển thị trang Checkout
+    if (document.getElementById('checkout-form')) {
+        renderCheckoutSummary();
+    }
+
+    // Xử lý sự kiện đặt hàng
+    const checkoutForm = document.getElementById('checkout-form');
+    if (checkoutForm) {
+        checkoutForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            if (cart.length === 0) {
+                alert("Giỏ hàng của bạn đang trống!");
+                window.location.href = 'index.html';
+                return;
+            }
+
+            // Thu thập thông tin đơn hàng
+            const orderData = {
+                orderId: 'ORD-' + Date.now(),
+                customer: {
+                    name: document.getElementById('checkout-name').value,
+                    phone: document.getElementById('checkout-phone').value,
+                    address: document.getElementById('checkout-address').value,
+                    note: document.getElementById('checkout-note').value
+                },
+                items: cart,
+                total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+                payment: document.querySelector('input[name="payment"]:checked').value,
+                date: new Date().toLocaleString(),
+                status: 'Chờ xử lý'
+            };
+
+            // Lưu đơn hàng vào localStorage (để xem trong trang Admin nếu có)
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            orders.push(orderData);
+            localStorage.setItem('orders', JSON.stringify(orders));
+
+            // Xóa giỏ hàng sau khi đặt thành công
+            localStorage.removeItem('cart');
+            cart = [];
+            updateCartBadge();
+
+            // Thông báo thành công
+            alert(`Cảm ơn ${orderData.customer.name}! Đơn hàng ${orderData.orderId} đã đặt thành công.`);
+            window.location.href = 'index.html';
+        });
+    }
+});
+
+// Hàm hiển thị tóm tắt đơn hàng tại trang thanh toán
+function renderCheckoutSummary() {
+    const output = document.getElementById('checkout-items-list');
+    const subtotalEl = document.getElementById('checkout-subtotal');
+    const totalEl = document.getElementById('checkout-total');
+    let totalMoney = 0;
+
+    if (cart.length === 0) {
+        alert("Giỏ hàng trống, mời bạn mua hàng!");
+        window.location.href = 'index.html';
+        return;
+    }
+
+    output.innerHTML = cart.map(item => {
+        const itemTotal = item.price * item.quantity;
+        totalMoney += itemTotal;
+        return `
+            <div class="checkout-item">
+                <span>${item.name} <b>x${item.quantity}</b></span>
+                <span>${itemTotal.toLocaleString()}đ</span>
+            </div>
+        `;
+    }).join('');
+
+    subtotalEl.innerText = totalMoney.toLocaleString() + 'đ';
+    totalEl.innerText = totalMoney.toLocaleString() + 'đ';
+
+    // Tự động điền thông tin nếu đã đăng nhập
+    const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
+    if (loggedInUser) {
+        document.getElementById('checkout-name').value = loggedInUser.fullname;
+        document.getElementById('checkout-phone').focus(); // Gợi ý điền tiếp SĐT
+    }
+}
+
+
+
+
+
+
+
+
+
+// --- THÊM LOGIC ADMIN VÀO APP.JS ---
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Chuyển đổi các Tab trong Admin
+    const adminMenuItems = document.querySelectorAll('.admin-menu li[data-target]');
+    adminMenuItems.forEach(item => {
+        item.addEventListener('click', () => {
+            // Xóa active cũ
+            document.querySelectorAll('.admin-menu li').forEach(li => li.classList.remove('active'));
+            document.querySelectorAll('.admin-section').forEach(sec => sec.classList.remove('active'));
+            
+            // Active tab mới
+            item.classList.add('active');
+            const target = item.getAttribute('data-target');
+            document.getElementById(target).classList.add('active');
+            
+            // Reload dữ liệu tương ứng
+            if(target === 'dashboard') loadStats();
+            if(target === 'orders') renderAdminOrders();
+        });
+    });
+
+    // 2. Kiểm tra nếu đang ở trang Admin thì load dữ liệu mặc định
+    if (document.querySelector('.admin-page')) {
+        loadStats();
+        renderAdminOrders();
+    }
+});
+
+// Hàm tính toán thống kê
+function loadStats() {
+    const orders = JSON.parse(localStorage.getItem('orders')) || [];
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    
+    const revenue = orders.reduce((total, order) => total + order.total, 0);
+    
+    document.getElementById('stat-revenue').innerText = revenue.toLocaleString() + 'đ';
+    document.getElementById('stat-orders').innerText = orders.length;
+    document.getElementById('stat-users').innerText = users.length;
+}
+
+// Hàm hiển thị đơn hàng trong Admin
+function renderAdminOrders() {
+    const ordersList = document.getElementById('admin-orders-list');
+    const orders = JSON.parse(localStorage.getItem('orders')) || [];
+
+    if(!ordersList) return;
+
+    if (orders.length === 0) {
+        ordersList.innerHTML = '<tr><td colspan="6" style="text-align:center">Chưa có đơn hàng nào</td></tr>';
+        return;
+    }
+
+    ordersList.innerHTML = orders.map((order, index) => `
+        <tr>
+            <td>#${order.orderId.slice(-6)}</td>
+            <td>${order.customer.name}</td>
+            <td>${order.date.split(',')[0]}</td>
+            <td>${order.total.toLocaleString()}đ</td>
+            <td><span class="status-badge ${order.status === 'Hoàn thành' ? 'status-completed' : 'status-pending'}">${order.status}</span></td>
+            <td>
+                <button class="btn-sm" onclick="updateOrderStatus(${index})">Duyệt</button>
+                <button class="btn-sm" style="background: #fab1a0" onclick="deleteOrder(${index})">Xóa</button>
+            </td>
+        </tr>
+    `).join('');
+}
+
+// Hàm Duyệt đơn hàng (Đổi trạng thái)
+window.updateOrderStatus = (index) => {
+    const orders = JSON.parse(localStorage.getItem('orders')) || [];
+    orders[index].status = 'Hoàn thành';
+    localStorage.setItem('orders', JSON.stringify(orders));
+    renderAdminOrders();
+    loadStats();
+};
+
+// Hàm Xóa đơn hàng
+window.deleteOrder = (index) => {
+    if (confirm('Bạn có chắc muốn xóa đơn này?')) {
+        const orders = JSON.parse(localStorage.getItem('orders')) || [];
+        orders.splice(index, 1);
+        localStorage.setItem('orders', JSON.stringify(orders));
+        renderAdminOrders();
+        loadStats();
+    }
+};
+
+
+
+
+

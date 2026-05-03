@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - QUOCDAT RICESHOP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin-page">
+
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="admin-logo">
+                <i class="fas fa-user-shield"></i> Admin <span>Rice</span>
+            </div>
+            <ul class="admin-menu">
+                <li class="active" data-target="dashboard"><i class="fas fa-chart-line"></i> Thống kê</li>
+                <li data-target="orders"><i class="fas fa-shopping-cart"></i> Đơn hàng</li>
+                <li data-target="products"><i class="fas fa-box"></i> Sản phẩm</li>
+                <li><a href="index.html" style="color: white; text-decoration: none;"><i class="fas fa-home"></i> Quay về Shop</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <header class="admin-header">
+                <h2>Bảng điều khiển</h2>
+                <div class="admin-user">
+                    <span id="admin-name">Admin</span>
+                    <i class="fas fa-circle-user"></i>
+                </div>
+            </header>
+
+            <!-- Section: Dashboard -->
+            <section id="dashboard" class="admin-section active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fas fa-wallet"></i>
+                        <div>
+                            <h4 id="stat-revenue">0đ</h4>
+                            <p>Doanh thu</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-bag-shopping"></i>
+                        <div>
+                            <h4 id="stat-orders">0</h4>
+                            <p>Đơn hàng</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                        <div>
+                            <h4 id="stat-users">0</h4>
+                            <p>Khách hàng</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section: Orders -->
+            <section id="orders" class="admin-section">
+                <h3>Quản lý đơn hàng</h3>
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Mã đơn</th>
+                                <th>Khách hàng</th>
+                                <th>Ngày đặt</th>
+                                <th>Tổng tiền</th>
+                                <th>Trạng thái</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-orders-list">
+                            <!-- JS đổ dữ liệu đơn hàng ở đây -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Section: Products -->
+            <section id="products" class="admin-section">
+                <div class="section-header-admin">
+                    <h3>Quản lý sản phẩm</h3>
+                    <button class="btn btn-primary" onclick="alert('Chức năng đang phát triển!')">Thêm sản phẩm</button>
+                </div>
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Ảnh</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Giá</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-products-list">
+                            <!-- JS đổ dữ liệu sản phẩm ở đây -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
