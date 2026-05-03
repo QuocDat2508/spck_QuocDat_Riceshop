@@ -4,18 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giỏ Hàng - QUOCDAT RICESHOP</title>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- CSS Chung -->
     <link rel="stylesheet" href="style.css">
-    <!-- CSS Riêng cho trang Cart -->
     <link rel="stylesheet" href="cart.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body class="cart-page-body"> <!-- Class riêng để không bị dính background của trang Login -->
+<body class="cart-page-body">
 
-    <!-- Header (Giữ nguyên cấu trúc của bạn) -->
     <header>
         <nav class="navbar container">
             <div class="logo">
@@ -28,24 +23,22 @@
                 <li><a href="contact.html">Liên Hệ</a></li>
             </ul>
             <div class="nav-icons">
-                <a href="login.html" title="Tài khoản"><i class="fas fa-user"></i></a>
+                <a href="login.html" id="user-login-btn"><i class="fas fa-user"></i></a>
                 <a href="cart.html" class="cart-icon">
                     <i class="fas fa-shopping-basket" style="color: var(--primary-color);"></i>
-                    <span class="badge">2</span>
+                    <span class="badge">0</span>
                 </a>
             </div>
         </nav>
     </header>
 
-    <!-- Cart Section -->
     <main class="cart-section container">
         <div class="cart-header">
             <h1>Giỏ Hàng Của Bạn</h1>
-            <p>Có 2 sản phẩm trong giỏ hàng</p>
+            <p id="cart-count-text">Đang tải giỏ hàng...</p>
         </div>
 
         <div class="cart-layout">
-            <!-- Danh sách sản phẩm -->
             <div class="cart-table-container">
                 <table class="cart-table">
                     <thead>
@@ -54,80 +47,32 @@
                             <th>Đơn giá</th>
                             <th>Số lượng</th>
                             <th>Số tiền</th>
-                            <th>Thao tác</th>
+                            <th></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <!-- Sản phẩm 1 -->
-                        <tr>
-                            <td>
-                                <div class="p-item">
-                                    <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=100&q=80" alt="Gạo ST25">
-                                    <div class="p-info">
-                                        <h3>Gạo ST25 (Ngon nhất TG)</h3>
-                                        <small>Loại: 5kg/túi</small>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="p-price">35.000đ</td>
-                            <td>
-                                <div class="qty-selector">
-                                    <button>-</button>
-                                    <input type="number" value="1" min="1">
-                                    <button>+</button>
-                                </div>
-                            </td>
-                            <td class="p-subtotal">35.000đ</td>
-                            <td><button class="btn-remove"><i class="far fa-trash-alt"></i></button></td>
-                        </tr>
-                        <!-- Sản phẩm 2 -->
-                        <tr>
-                            <td>
-                                <div class="p-item">
-                                    <img src="https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?auto=format&fit=crop&w=100&q=80" alt="Gạo Lứt">
-                                    <div class="p-info">
-                                        <h3>Gạo Lứt Huyết Rồng</h3>
-                                        <small>Loại: 2kg/túi</small>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="p-price">40.000đ</td>
-                            <td>
-                                <div class="qty-selector">
-                                    <button>-</button>
-                                    <input type="number" value="2" min="1">
-                                    <button>+</button>
-                                </div>
-                            </td>
-                            <td class="p-subtotal">80.000đ</td>
-                            <td><button class="btn-remove"><i class="far fa-trash-alt"></i></button></td>
-                        </tr>
+                    <tbody id="cart-items-output">
+                        <!-- JS sẽ đổ dữ liệu vào đây -->
                     </tbody>
                 </table>
                 <div class="cart-actions-left">
-                    <a href="products.html" class="btn-back"><i class="fas fa-arrow-left"></i> Tiếp tục mua sắm</a>
+                    <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Tiếp tục mua hàng</a>
                 </div>
             </div>
 
-            <!-- Tổng kết đơn hàng -->
             <aside class="cart-summary">
                 <div class="summary-box">
                     <h3>Tổng đơn hàng</h3>
                     <div class="summary-item">
                         <span>Tạm tính</span>
-                        <span>115.000đ</span>
+                        <span id="subtotal-amount">0đ</span>
                     </div>
                     <div class="summary-item">
-                        <span>Phí vận chuyển</span>
+                        <span>Giao hàng</span>
                         <span>Miễn phí</span>
                     </div>
                     <div class="summary-total">
-                        <span>Tổng tiền</span>
-                        <span class="total-amount">115.000đ</span>
-                    </div>
-                    <div class="promo-section">
-                        <input type="text" placeholder="Mã giảm giá...">
-                        <button>Áp dụng</button>
+                        <span>Tổng cộng</span>
+                        <span class="total-amount">0đ</span>
                     </div>
                     <a href="checkout.html" class="btn btn-primary btn-checkout">TIẾN HÀNH THANH TOÁN</a>
                 </div>
@@ -135,21 +80,20 @@
         </div>
     </main>
 
-    <!-- Footer (Giữ nguyên cấu trúc của bạn) -->
     <footer>
         <div class="footer-container container">
             <div class="footer-col">
                 <h3>QUOCDAT <span>RICE</span></h3>
-                <p>Chuyên cung cấp các giải pháp về gạo sạch cho gia đình Việt.</p>
+                <p>Chuyên cung cấp gạo sạch chất lượng cao.</p>
             </div>
             <div class="footer-col">
-                <h4>Thông Tin</h4>
-                <p><i class="fas fa-location-dot"></i> 123 Đường Lúa Vàng, TP. HCM</p>
+                <h4>Liên Hệ</h4>
                 <p><i class="fas fa-phone"></i> 090 123 4567</p>
+                <p><i class="fas fa-envelope"></i> contact@quocdatrice.com</p>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2024 QUOCDAT RICESHOP. Thiết kế bởi Quốc Đạt.</p>
+            <p>&copy; 2024 QUOCDAT RICESHOP.</p>
         </div>
     </footer>
 
